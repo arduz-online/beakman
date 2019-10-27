@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "jsx": "react",
+    "noImplicitThis": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "diagnostics": true,
+    "emitDecoratorMetadata": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "stripInternal": true,
+    "pretty": true,
+    "noUnusedParameters": true,
+    "outDir": "dist"
+  },
+  "exclude": [
+    "node_modules/**/*",
+    "dist/**/*",
+    "dist-cjs/**/*"
+  ],
+  "include": [
+    "**/*.ts"
+  ]
+}

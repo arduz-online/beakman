@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+// package broker;
+
+
+enum WebRTCMessageType {
+  WEBRTC_UNKNOWN = 0;
+  WEBRTC_SESSION = 4;
+  WEBRTC_ICE_CANDIDATE = 5;
+}
+
+message BrokerMessage {
+  oneof type {
+    WelcomeMessage welcome = 1;
+    WebRtcMessage webrtc_negotiation = 2;
+
+    ServerList server_list_response = 4;
+    Header server_list_request = 5;
+
+    // Message sent to the signaling server to register a new game server
+    CreateServerRequest create_server_request = 6;
+    CreateServerResponse create_server_response = 7;
+
+    // Message sent to the signaling server to set the server data
+    SetServerData set_server_data = 8; // TODO
+
+    // Join server request & response
+    ServerSyn server_syn = 9;
+    ServerSynAck server_syn_ack = 10;
+    Header ping = 11;
+    Header pong = 12;
+  }
+}
+
+message Header {
+  int32 padding = 1;
+}
+
+message WelcomeMessage {
+  string alias = 2;
+}
+
+message ServerList {
+  repeated ServerData servers = 2;
+}
+
+message SetServerData {
+  ServerData data = 2;
+}
+
+message CreateServerRequest {
+  string alias = 2;
+  ServerData data = 3;
+}
+
+message CreateServerResponse {
+  string alias = 2;
+}
+
+message ServerData {
+  string alias = 1;
+  string name = 2;
+}
+
+message ServerSyn {
+  string sender = 2;
+  string server_alias = 3;
+}
+
+message ServerSynAck {
+  string sender = 2;
+  string receiver = 3;
+}
+
+message WebRtcMessage {
+  WebRTCMessageType rtc_type = 2;
+  string json = 3;
+  string sender = 4;
+  string receiver = 5;
+}
