@@ -1,13 +1,11 @@
 /// <reference path="../../wrtc.d.ts" />
 
-import { BaseBroker, ISocket } from "../BaseBroker";
-import { MockBroker } from "../Mocks";
-import * as wrtc from "wrtc";
+declare var  it: any;
 
-declare var describe: any, it: any;
+import { BaseBroker, ISocket } from "../BaseBroker";
 
 export function testWebRtc(broker: BaseBroker) {
-  const openSockets: ISocket[] = []
+  const openSockets: ISocket[] = [];
 
   it("broker gets connected", async () => {
     await broker.connectedFuture;
@@ -17,7 +15,7 @@ export function testWebRtc(broker: BaseBroker) {
     const connectionA = broker.options.socketBuilder(broker);
     const connectionB = broker.options.socketBuilder(broker);
 
-    openSockets.push(connectionA, connectionB)
+    openSockets.push(connectionA, connectionB);
 
     connectionA.onDataObservable.add($ => console.log("A received ", $));
     connectionB.onDataObservable.add($ => console.log("B received ", $));
@@ -42,7 +40,7 @@ export function testWebRtc(broker: BaseBroker) {
 
   it("start listening", async () => {
     await broker.listen(connection => {
-      openSockets.push(connection)
+      openSockets.push(connection);
 
       connection.onDataObservable.add(m => console.log("host1:" + connection.socketId, ">", m));
 
@@ -66,20 +64,10 @@ export function testWebRtc(broker: BaseBroker) {
     connectionA.send("hellon", true);
     connectionB.send("hellow", true);
 
-    openSockets.push(connectionA, connectionB)
+    openSockets.push(connectionA, connectionB);
   });
 
-  it('closes everything', async () => {
+  it("closes everything", async () => {
     openSockets.forEach($ => $.close());
-  })
+  });
 }
-
-describe("mocked broker with mocked sockets", () => {
-  const mockedBroker = new MockBroker(false);
-  testWebRtc(mockedBroker);
-});
-
-describe("mocked broker with wrtc", () => {
-  const mockedBroker = new MockBroker(true, wrtc);
-  testWebRtc(mockedBroker);
-});

@@ -1,5 +1,6 @@
 import { future } from "fp-future";
 import { RtcSocket } from "./RtcSocket";
+import { performanceNow } from "./Timers";
 
 export enum NatType {
   Other = 0,
@@ -17,7 +18,7 @@ export async function detectNat(rtcConfiguration: RTCConfiguration): Promise<{ n
 
   const channel = pc.createDataChannel("foo");
 
-  const start = performance.now();
+  const start = performanceNow();
   const endWithTimeout = start + SLOW_ICE_TIMEOUT;
 
   function finish() {
@@ -25,12 +26,12 @@ export async function detectNat(rtcConfiguration: RTCConfiguration): Promise<{ n
       const ports = candidatePorts.values().next()!;
 
       if (ports.value.size === 1) {
-        result.resolve({ nat: NatType.Other, timeout: performance.now() > endWithTimeout, candidates });
+        result.resolve({ nat: NatType.Other, timeout: performanceNow() > endWithTimeout, candidates });
       } else {
-        result.resolve({ nat: NatType.SymmetricNAT, timeout: performance.now() > endWithTimeout, candidates });
+        result.resolve({ nat: NatType.SymmetricNAT, timeout: performanceNow() > endWithTimeout, candidates });
       }
     } else {
-      result.resolve({ nat: NatType.NoNAT, timeout: performance.now() > endWithTimeout, candidates });
+      result.resolve({ nat: NatType.NoNAT, timeout: performanceNow() > endWithTimeout, candidates });
     }
   }
 

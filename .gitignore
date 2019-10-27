@@ -1,7 +1,8 @@
-node_modules
-*.js
-*.d.ts
-*.map
+**/node_modules
+**/*.js
+**/*.d.ts
+**/*.map
 dist
 dist-cjs
 dist-web
+signaling-server/proto

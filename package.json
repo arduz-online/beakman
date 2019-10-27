@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/menduz/beakman#readme",
   "devDependencies": {
+    "@types/ws": "^6.0.3",
     "expect": "^24.9.0",
     "mocha": "^6.2.2",
     "rimraf": "^3.0.0",
@@ -30,7 +31,8 @@
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript2": "^0.24.3",
     "typescript": "^3.6.4",
-    "wrtc": "^0.4.2"
+    "wrtc": "^0.4.2",
+    "ws": "^7.2.0"
   },
   "dependencies": {
     "@types/google-protobuf": "^3.7.2",
