@@ -87,10 +87,10 @@ export class MockBroker extends BaseBroker {
     return true;
   }
 
-  constructor(useRealPeerConnection = false) {
+  constructor(useRealPeerConnection = false, wrtc?: any) {
     super({
       socketBuilder: () => {
-        const sock = useRealPeerConnection ? new RtcSocket(this, peerConnectionConfig) : new MockSocket(this);
+        const sock = useRealPeerConnection ? new RtcSocket(this, peerConnectionConfig, wrtc) : new MockSocket(this);
         this.connections.set(sock.socketId, sock);
         sock.onDisconnected.add(() => {
           this.connections.delete(sock.socketId);

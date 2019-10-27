@@ -55,7 +55,9 @@ export class RtcSocket implements ISocket {
           // https://stackoverflow.com/questions/38198751/domexception-error-processing-ice-candidate?rq=1
           const addCandidate = async () => {
             await this.hasRemoteConnectionFuture;
-            await this.peer!.addIceCandidate(candidate);
+            if (candidate !== null) {
+              await this.peer!.addIceCandidate(candidate);
+            }
           };
           addCandidate().catch($ => {
             this.throwError($);

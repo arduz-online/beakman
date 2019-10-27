@@ -20,6 +20,6 @@ build: | clean compile_protocol
 	./node_modules/.bin/rollup -c
 
 test: build
-	./node_modules/.bin/mocha dist-cjs/tests/*.js
+	./node_modules/.bin/mocha dist-cjs/tests/*.js --timeout 30000
 
 .PHONY: build clean

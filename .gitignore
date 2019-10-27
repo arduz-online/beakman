@@ -4,3 +4,4 @@ node_modules
 *.map
 dist
 dist-cjs
+dist-web
