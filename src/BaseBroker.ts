@@ -60,11 +60,12 @@ export abstract class BaseBroker {
 
   public alias?: string;
 
+  // It must return the socketId of the new connection
+  public onCreateConnectionCallback?: (socket: ISocket) => string;
+
   private socketCount = 0;
   private listeningFuture = future<void>();
 
-  // It must return the socketId of the new connection
-  private onCreateConnectionCallback?: (socket: ISocket) => string;
   abstract get isConnected(): boolean;
 
   abstract send(brokerMessage: proto.BrokerMessage): void;
