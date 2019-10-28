@@ -10,7 +10,7 @@ import { testWebRtc } from "./testBroker";
 
 declare var describe: any, it: any;
 
-const initializeOnWebSocketServer = require("../../signaling-server/src/index").initializeOnWebSocketServer;
+const initializeOnWebSocketServer = require("../../beakman-signaling/src/index").initializeOnWebSocketServer;
 
 describe("mocked broker with mocked sockets", () => {
   const mockedBroker = new MockBroker(false);

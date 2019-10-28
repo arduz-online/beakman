@@ -24,8 +24,12 @@ test: build-signaling
 
 build-signaling: build
 	npm link
-	cd signaling-server; npm i
-	cd signaling-server; npm link beakman
-	cd signaling-server; npm test
+	cd beakman-signaling; npm i
+	cd beakman-signaling; npm link beakman
+	cd beakman-signaling; npm test
+
+update-signaling:
+	git submodule update --init --recursive
+	git submodule foreach git pull origin master
 
 .PHONY: build clean

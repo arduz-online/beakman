@@ -75,7 +75,7 @@ await broker.listen({ name: 'server name' }, clientConnection => {
 
 ## Signaling server
 
-There is a naive implementation of the signaling server in the folder [signaling-server](signaling-server).
+There is a naive implementation of the signaling server in the folder [beakman-signaling](beakman-signaling).
 
 Cloning the folder and running `npm start` is enough to run the signaling server.
 

@@ -31,7 +31,7 @@
   "exclude": [
     "node_modules/**/*",
     "dist/**/*",
-    "signaling-server/**/*",
+    "beakman-signaling/**/*",
     "dist-cjs/**/*"
   ],
   "include": [

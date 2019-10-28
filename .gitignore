@@ -5,4 +5,3 @@
 dist
 dist-cjs
 dist-web
-signaling-server/proto
