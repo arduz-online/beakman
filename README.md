@@ -23,8 +23,12 @@ const rtcConfiguration = {
 
 // Connect to a signaling server
 const broker = new RemoteBroker({
+  // WebRTC peer configurations
   rtcConfiguration,
-  remoteWs: 'wss://open-signaling.beakman.tech'
+  // signaling server url
+  remoteWs: 'wss://beakman-signaling.menduz.com',
+  // protocol to identify this app in the shared signaling server
+  protocol: 'my-app-v1'
 })
 
 // Get the server list
@@ -50,11 +54,13 @@ import { RemoteBroker } from 'beakman'
 
 // Connect to a signaling server
 const broker = new RemoteBroker({
-  remoteWs: 'wss://open-signaling.beakman.tech'
+  rtcConfiguration,
+  remoteWs: 'wss://beakman-signaling.menduz.com',
+  protocol: 'my-app-v1'
 })
 
 // Listen for new connections
-await broker.listen(clientConnection => {
+await broker.listen({ name: 'server name' }, clientConnection => {
   console.log('A client got connected!', clientConnection)
 
   // Listening messages FROM client
@@ -84,9 +90,10 @@ const ws = require('ws')
 
 // Connect to a signaling server
 const broker = new RemoteBroker({
-  remoteWs: 'wss://open-signaling.beakman.tech',
   rtcConfiguration,
+  remoteWs: 'wss://beakman-signaling.menduz.com',
+  protocol: 'my-app-v1',
   wrtc,
   ws
 })
-```
+```# beakman-signaling

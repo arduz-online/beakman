@@ -21,7 +21,18 @@ export type SocketBuilder = (broker: BaseBroker) => ISocket;
 
 export interface BrokerOptions {
   readonly socketBuilder: SocketBuilder;
+
+  // Protocol is used to differentiate application protocol versions or deployments
+  readonly protocol?: string;
 }
+
+export type PartialServerData = {
+  // Server name
+  name?: string;
+
+  // metadata object
+  meta?: any;
+};
 
 export abstract class BaseBroker {
   async connect(serverAlias: string): Promise<ISocket> {
@@ -101,7 +112,7 @@ export abstract class BaseBroker {
     });
   }
 
-  async listen(cb: BaseBroker["onCreateConnectionCallback"]) {
+  async listen(options: PartialServerData, cb: BaseBroker["onCreateConnectionCallback"]) {
     if (!cb) throw new Error("A callback is required");
     this.onCreateConnectionCallback = cb;
 
@@ -109,7 +120,15 @@ export abstract class BaseBroker {
 
     const serverData = new proto.ServerData();
     serverData.setAlias(this.alias!);
-    serverData.setName(this.alias! + " server");
+    serverData.setName(options.name || this.alias! + " server");
+
+    if (this.options.protocol) {
+      serverData.setProtocol(this.options.protocol);
+    }
+
+    if (typeof options.meta !== "undefined") {
+      serverData.setMeta(JSON.stringify(options.meta));
+    }
 
     const request = new proto.CreateServerRequest();
     request.setAlias(this.alias!);
@@ -126,7 +145,14 @@ export abstract class BaseBroker {
 
   async requestServerList(): Promise<proto.ServerList> {
     const wireMessage = new proto.BrokerMessage();
-    wireMessage.setServerListRequest(new proto.Header());
+
+    const serverListRequest = new proto.ServerListRequest();
+
+    if (this.options.protocol) {
+      serverListRequest.setProtocol(this.options.protocol);
+    }
+
+    wireMessage.setServerListRequest(serverListRequest);
 
     const ret = future<proto.ServerList>();
 

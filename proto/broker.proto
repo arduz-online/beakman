@@ -15,7 +15,7 @@ message BrokerMessage {
     WebRtcMessage webrtc_negotiation = 2;
 
     ServerList server_list_response = 4;
-    Header server_list_request = 5;
+    ServerListRequest server_list_request = 5;
 
     // Message sent to the signaling server to register a new game server
     CreateServerRequest create_server_request = 6;
@@ -34,6 +34,10 @@ message BrokerMessage {
 
 message Header {
   int32 padding = 1;
+}
+
+message ServerListRequest {
+  string protocol = 3;
 }
 
 message WelcomeMessage {
@@ -60,6 +64,8 @@ message CreateServerResponse {
 message ServerData {
   string alias = 1;
   string name = 2;
+  string protocol = 3;
+  string meta = 4;
 }
 
 message ServerSyn {

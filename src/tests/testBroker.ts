@@ -39,7 +39,7 @@ export function testWebRtc(broker: BaseBroker) {
   });
 
   it("start listening", async () => {
-    await broker.listen(connection => {
+    await broker.listen({}, connection => {
       openSockets.push(connection);
 
       connection.onDataObservable.add(m => console.log("host1:" + connection.socketId, ">", m));
