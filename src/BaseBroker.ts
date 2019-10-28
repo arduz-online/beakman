@@ -72,7 +72,7 @@ export abstract class BaseBroker {
   public alias?: string;
 
   // It must return the socketId of the new connection
-  public onCreateConnectionCallback?: (socket: ISocket) => string;
+  public onCreateConnectionCallback?: (socket: ISocket) => void;
 
   private socketCount = 0;
   private listeningFuture = future<void>();
@@ -94,8 +94,8 @@ export abstract class BaseBroker {
         if (packet.getServerAlias() === this.alias) {
           if (this.onCreateConnectionCallback) {
             const socket = this.options.socketBuilder(this);
-            const socketId = this.onCreateConnectionCallback(socket);
-            this.sendSynAck(socketId, packet.getSender());
+            this.onCreateConnectionCallback(socket);
+            this.sendSynAck(socket.socketId, packet.getSender());
           }
         }
       } else if ($.hasCreateServerResponse()) {

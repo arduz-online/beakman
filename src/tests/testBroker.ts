@@ -43,8 +43,6 @@ export function testWebRtc(broker: BaseBroker) {
       openSockets.push(connection);
 
       connection.onDataObservable.add(m => console.log("host1:" + connection.socketId, ">", m));
-
-      return connection.socketId;
     });
   });
 

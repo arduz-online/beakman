@@ -8,6 +8,7 @@ clean:
 	./node_modules/.bin/rimraf dist
 	./node_modules/.bin/rimraf dist-web
 	./node_modules/.bin/rimraf dist-cjs
+	npm install
 
 compile_protocol:
 	cd proto; ${PROTOC} --js_out=import_style=commonjs_strict,binary:. --ts_out=. ./broker.proto
