@@ -1,0 +1,186 @@
+<script src="beakman.min.js"></script>
+
+<style>
+  @import url("https://fonts.googleapis.com/css?family=GFS+Didot:400|Griffy:400");
+
+  html {
+    font-size: 16px;
+  }
+
+  * {
+    box-sizing: content-box;
+  }
+
+  body {
+    background-color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #333;
+  }
+
+  p {
+    margin-bottom: 1.25em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin: 0.5rem 0 1rem;
+    font-family: "GFS Didot", serif;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 5.653em;
+  }
+
+  h2 {
+    font-size: 3.998em;
+  }
+
+  h3 {
+    font-size: 2.827em;
+  }
+
+  h4 {
+    font-size: 1.999em;
+  }
+
+  h5 {
+    font-size: 1.414em;
+  }
+
+  small,
+  .text_small {
+    font-size: 0.707em;
+  }
+
+  header,
+  content {
+    padding: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  table {
+    width: 100%;
+  }
+</style>
+
+<header>
+  <h5>Create a server in a browser tab</h5>
+  <h1>Beakman</h1>
+  <h3>A P2P room system for the web</h3>
+
+  <div>
+    Remember online games where you created your own server?<br />
+    Remember Age of Empires? Counter Strike? MSN Messenger?<br />
+    This tool brings back the posibility to create Peer-to-Peer rooms from a browser tab.<br />
+    There are mainly two (2) things you can do with this library:
+    <ul>
+      <li>Hosting a room</li>
+      <li>Joining a room</li>
+    </ul>
+  </div>
+
+  <img src="x.svg" style="width: 100%; margin-bottom: 32px;" />
+
+  <table>
+    <tr>
+      <td>
+        <h4 style="text-align: center">Hosting a room</h4>
+        <pre>
+import { RemoteBroker } from 'beakman'
+
+// Connect to a signaling server
+const broker = new RemoteBroker({
+  rtcConfiguration,
+  remoteWs: 'wss://beakman-signaling.menduz.com',
+  protocol: 'my-app-v1'
+})
+
+const serverData = {
+  name: 'server name'
+}
+
+// Listen for new connections
+await broker.listen(serverData,
+  clientConnection => {
+    console.log(
+      'A client got connected!',
+      clientConnection
+    )
+
+  // Listening messages FROM client
+  clientConnection.onDataObservable.add(
+    message => {
+      console.log(
+        `receive message`,
+        message,
+        'from',
+        clientConnection.socketId
+      )
+    }
+  )
+
+  // Send messages TO client
+  clientConnection.send('message')
+})
+
+// Profit
+        </pre>
+      </td>
+      <td>
+        <h4 style="text-align: center">Joining a room</h4>
+        <pre>
+import { RemoteBroker } from 'beakman'
+
+// Connect to a signaling server
+const broker = new RemoteBroker({
+  // WebRTC peer configurations
+  rtcConfiguration,
+  // signaling server url
+  remoteWs: 'wss://beakman-signaling.menduz.com',
+  // protocol to identify this app in the shared
+  // signaling server
+  protocol: 'my-app-v1'
+})
+
+// Get the server list
+const serverListResponse =
+  await broker.requestServerList()
+
+// Pick a server from the list
+const aServer =
+  serverListResponse.getServersList().first()
+
+// Connect to a server
+const clientConnection =
+  await broker.connect(aServer.alias)
+
+// Listening messages FROM server
+clientConnection.onDataObservable.add(
+  message => {
+    console.log(
+      'receive message',
+      message,
+      'from',
+      aServer.alias
+    )
+  }
+)
+
+// Send messages TO server
+clientConnection.send('a message');
+
+// Profit
+        </pre>
+      </td>
+    </tr>
+  </table>
+</header>

@@ -19,6 +19,7 @@ build: | clean compile_protocol
 	./node_modules/.bin/tsc -p tsconfig.cjs.json
 	./node_modules/.bin/rollup -c --environment BUILD:production
 	./node_modules/.bin/rollup -c
+	cp dist-web/beakman.min.js docs/beakman.min.js
 
 test: build-signaling
 	./node_modules/.bin/mocha dist-cjs/tests/*.js --timeout 30000
