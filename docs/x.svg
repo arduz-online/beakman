@@ -1,7 +1,7 @@
 
-<svg width="376px" height="273px" viewBox="0 0 376 273" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="376px" height="288px" viewBox="0 0 376 288" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Desktop" transform="translate(-64.000000, -91.000000)">
+        <g id="Desktop" transform="translate(-64.000000, -76.000000)">
             <rect id="Rectangle-Copy" stroke="#000000" fill="#FFFFFF" x="64.5" y="240.5" width="123" height="123" rx="8"></rect>
             <text id="Server-(A-browser-ta" font-family="Helvetica" font-size="12" font-weight="normal" fill="#000000">
                 <tspan x="108.328125" y="299">Server</tspan>
@@ -14,13 +14,13 @@
                 <tspan x="319.817383" y="313">(Also browser tabs)</tspan>
             </text>
             <path id="Line" d="M301.5,297.5 L310.5,302 L301.5,306.5 L301.5,302.5 L196.5,302.5 L196.5,306.5 L187.5,302 L196.5,297.5 L196.5,301.5 L301.5,301.5 L301.5,297.5 Z" fill="#000000" fill-rule="nonzero"></path>
-            <text id="Peer-toPeer-Data-Cha" font-family="Helvetica" font-size="12" font-weight="normal" fill="#000000">
-                <tspan x="216.650391" y="299">Peer-toPeer</tspan>
+            <text id="Peer-to-Peer-Data-Ch" font-family="Helvetica" font-size="12" font-weight="normal" fill="#000000">
+                <tspan x="214.652344" y="299">Peer-to-Peer</tspan>
                 <tspan x="209.308594" y="313">Data Channels</tspan>
             </text>
-            <circle id="Oval" stroke="#000000" fill="#FFFFFF" cx="249" cy="135" r="43.5"></circle>
+            <circle id="Oval" stroke="#000000" fill="#FFFFFF" cx="249" cy="120" r="43.5"></circle>
             <text id="Signaling" font-family="Helvetica" font-size="12" font-weight="normal" fill="#000000">
-                <tspan x="224.314453" y="139">Signaling</tspan>
+                <tspan x="224.314453" y="124">Signaling</tspan>
             </text>
             <path d="M126.5,237.5 C126.021879,215.558187 133.389784,193.767767 148.603714,172.128738 C163.817643,150.489709 182.783072,135.946796 205.5,128.5" id="Line-2" stroke="#000000" stroke-linecap="round" stroke-dasharray="6"></path>
             <path d="M293.021852,237 C292.543731,215.058187 299.911635,193.267767 315.125565,171.628738 C330.339495,149.989709 349.304924,135.446796 372.021852,128" id="Line-2" stroke="#000000" stroke-linecap="round" stroke-dasharray="6" transform="translate(332.510926, 182.500000) scale(-1, 1) translate(-332.510926, -182.500000) "></path>
