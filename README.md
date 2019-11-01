@@ -31,6 +31,9 @@ const broker = new RemoteBroker({
   protocol: 'my-app-v1'
 })
 
+// Wait for broker to be connected
+await broker.connectedFuture;
+
 // Get the server list
 const serverListResponse = await broker.requestServerList()
 const aServer = serverListResponse.getServersList().first()
@@ -42,6 +45,8 @@ const clientConnection = await broker.connect(aServer.alias)
 clientConnection.onDataObservable.add(message => {
   console.log(`receive message: ${message} from ${aServer.alias}`)
 })
+
+await clientConnection.awaitableConnected;
 
 // Send messages TO server
 clientConnection.send('a message');
@@ -59,6 +64,9 @@ const broker = new RemoteBroker({
   protocol: 'my-app-v1'
 })
 
+// Wait for broker to be connected
+await broker.connectedFuture;
+
 // Listen for new connections
 await broker.listen({ name: 'server name' }, clientConnection => {
   console.log('A client got connected!', clientConnection)
@@ -67,6 +75,8 @@ await broker.listen({ name: 'server name' }, clientConnection => {
   clientConnection.onDataObservable.add(message => {
     console.log(`receive message: ${message} from ${clientConnection.socketId}`)
   })
+
+  await client.awaitableConnected;
 
   // Send messages TO client
   clientConnection.send('message')
@@ -96,4 +106,4 @@ const broker = new RemoteBroker({
   wrtc,
   ws
 })
-```# beakman-signaling
+```
