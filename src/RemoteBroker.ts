@@ -79,7 +79,7 @@ export class RemoteBroker extends BaseBroker {
     });
 
     this.ws.addEventListener("close", _ => {
-      console.error("Disconnected!");
+      console.error("Disconnected from broker!");
       clearInterval(pingTimer);
     });
 

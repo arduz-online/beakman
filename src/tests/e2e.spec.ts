@@ -1,23 +1,31 @@
-/// <reference path="../../wrtc.d.ts" />
 import { MockBroker } from "../Mocks";
-import * as wrtc from "wrtc";
+const wrtc = require("wrtc");
 import { RemoteBroker } from "../RemoteBroker";
 import { peerConnectionConfig } from "../DefaultConfiguration";
 import * as http from "http";
 import * as WebSocket from "ws";
 import future from "fp-future";
 import { testWebRtc } from "./testBroker";
+import { RtcSocket } from "../RtcSocket";
 
 declare var describe: any, it: any;
 
-const initializeOnWebSocketServer = require("../../beakman-signaling/src/index").initializeOnWebSocketServer;
+const initializeOnWebSocketServer = require("../../beakman-signaling/src/index")
+  .initializeOnWebSocketServer;
 
 describe("mocked broker with mocked sockets", () => {
   const mockedBroker = new MockBroker(false);
   testWebRtc(mockedBroker);
 });
 
-describe("mocked broker with wrtc", () => {
+describe("mocked broker with wrtc and async offer", () => {
+  RtcSocket.slowIceResolutionDetected = false;
+  const mockedBroker = new MockBroker(true, wrtc);
+  testWebRtc(mockedBroker);
+});
+
+describe("mocked broker with wrtc and sync offers", () => {
+  RtcSocket.slowIceResolutionDetected = true;
   const mockedBroker = new MockBroker(true, wrtc);
   testWebRtc(mockedBroker);
 });
@@ -40,7 +48,7 @@ describe("test with signaling server", () => {
   const broker = new RemoteBroker({
     rtcConfiguration: peerConnectionConfig,
     wrtc,
-    ws: WebSocket
+    ws: WebSocket,
   });
 
   it("connects the broker", async () => {

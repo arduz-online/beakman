@@ -30,6 +30,8 @@ export class RtcSocket implements ISocket {
 
   private closed = false;
 
+  log = (..._args: any[]): void => { /* noop */ }
+
   // TODO: Cleanupo observables after disconnect or error
 
   set remoteSocket(value: string) {
@@ -123,6 +125,8 @@ export class RtcSocket implements ISocket {
       return;
     }
 
+    if (channel.readyState === "closing") return;
+
     if (channel.readyState !== "open") {
       this.throwError(
         new Error(`Data channel ${channel.label} is in state ${channel.readyState}. Cannot send any data.`)
@@ -144,7 +148,7 @@ export class RtcSocket implements ISocket {
     this.remoteSocket = remoteSocket;
 
     this.peer.addEventListener("connectionstatechange", _ => {
-      console.log(this.socketId, "connectionstatechange", this.peer!.connectionState);
+      this.log("connectionstatechange", this.peer!.connectionState);
 
       if (this.peer!.connectionState === "disconnected") {
         this.close();
@@ -155,15 +159,15 @@ export class RtcSocket implements ISocket {
     });
 
     this.peer.addEventListener("icecandidateerror", ev => {
-      console.log(this.socketId, "icecandidateerror", ev);
+      this.log("icecandidateerror", ev);
     });
 
     this.peer.addEventListener("iceconnectionstatechange", _ => {
-      console.log(this.socketId, "iceconnectionstatechange", this.peer!.iceConnectionState);
+      this.log("iceconnectionstatechange", this.peer!.iceConnectionState);
     });
 
     this.peer.addEventListener("icegatheringstatechange", _ => {
-      console.log(this.socketId, "icegatheringstatechange", this.peer!.iceGatheringState);
+      this.log("icegatheringstatechange", this.peer!.iceGatheringState);
     });
 
     this.peer.addEventListener("negotiationneeded", () => {
@@ -171,15 +175,15 @@ export class RtcSocket implements ISocket {
     });
 
     this.peer.addEventListener("signalingstatechange", _ => {
-      console.log(this.socketId, "signalingstatechange", this.peer!.signalingState);
+      this.log("signalingstatechange", this.peer!.signalingState);
     });
 
     this.peer.addEventListener("statsended", _ => {
-      console.log(this.socketId, "statsended");
+      this.log("statsended");
     });
 
     this.peer.addEventListener("track", ev => {
-      console.log(this.socketId, "track", ev);
+      this.log("track", ev);
     });
 
     // This will be called for each offer candidate. A candidate is a potential
@@ -205,7 +209,7 @@ export class RtcSocket implements ISocket {
   }
 
   async connect(remotePeer: string) {
-    console.log(this.socketId, "connect to", remotePeer);
+    this.log("connect to", remotePeer);
     this.ensurePeer(remotePeer);
 
     this.reliableDataChannel = this.peer!.createDataChannel("main", {});
@@ -229,8 +233,8 @@ export class RtcSocket implements ISocket {
     let noffer = newOffer;
 
     if (this.peer!.canTrickleIceCandidates === false || !RtcSocket.slowIceResolutionDetected) {
-      console.info(this.socketId, "Waiting for candidates (initialize offer)");
-      noffer = await this.waitForCandidatesFuture;
+      this.log("Waiting for candidates (initialize offer)");
+      noffer = await this.waitForCandidatesFuture || newOffer;
     }
 
     this.broker.sendSessionMessage(this.socketId, this.remoteSocket, {
@@ -251,8 +255,8 @@ export class RtcSocket implements ISocket {
     let nanswer = newAnswer;
 
     if (this.peer!.canTrickleIceCandidates === false || !RtcSocket.slowIceResolutionDetected) {
-      console.info(this.socketId, "Waiting for candidates (process offer)");
-      nanswer = await this.waitForCandidatesFuture;
+      this.log(this.socketId, "Waiting for candidates (process offer)");
+      nanswer = (await this.waitForCandidatesFuture) || newAnswer;
     }
 
     this.broker.sendSessionMessage(this.socketId, this.remoteSocket, {
@@ -301,7 +305,7 @@ export class RtcSocket implements ISocket {
       if (this.awaitableConnected.isPending) {
         this.awaitableConnected.reject(new Error("Error in DataChannel"));
       }
-      console.error("Error in DataChannel", evt);
+      this.log("Error in DataChannel", evt);
     });
 
     if (name === "main") {

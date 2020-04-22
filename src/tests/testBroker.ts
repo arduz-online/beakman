@@ -1,8 +1,7 @@
-/// <reference path="../../wrtc.d.ts" />
-
 declare var  it: any;
 
 import { BaseBroker, ISocket } from "../BaseBroker";
+import { RtcSocket } from "../RtcSocket";
 
 export function testWebRtc(broker: BaseBroker) {
   const openSockets: ISocket[] = [];
@@ -12,9 +11,8 @@ export function testWebRtc(broker: BaseBroker) {
   });
 
   it("test two connections", async () => {
-    const connectionA = broker.options.socketBuilder(broker);
-    const connectionB = broker.options.socketBuilder(broker);
-
+    const connectionA = broker.options.socketBuilder(broker) as RtcSocket;
+    const connectionB = broker.options.socketBuilder(broker)as RtcSocket;
     openSockets.push(connectionA, connectionB);
 
     connectionA.onDataObservable.add($ => console.log("A received ", $));
@@ -22,6 +20,9 @@ export function testWebRtc(broker: BaseBroker) {
 
     console.log("A", connectionA.socketId);
     console.log("B", connectionB.socketId);
+
+    connectionA.log = (...args) => console.log("A", ...args)
+    connectionB.log = (...args) => console.log("B", ...args)
 
     await connectionA.connect(connectionB.socketId);
 
@@ -42,6 +43,8 @@ export function testWebRtc(broker: BaseBroker) {
     await broker.listen({}, connection => {
       openSockets.push(connection);
 
+      (connection as RtcSocket).log = (...args) => console.log(connection.socketId, ...args);
+
       connection.onDataObservable.add(m => console.log("host1:" + connection.socketId, ">", m));
     });
   });
@@ -53,8 +56,11 @@ export function testWebRtc(broker: BaseBroker) {
   });
 
   it("establish connections to broker", async () => {
-    const connectionA = await broker.connect(broker.alias!);
-    const connectionB = await broker.connect(broker.alias!);
+    const connectionA = await broker.connect(broker.alias!) as RtcSocket;
+    const connectionB = await broker.connect(broker.alias!) as RtcSocket;
+
+    connectionA.log = (...args) => console.log("A", ...args)
+    connectionB.log = (...args) => console.log("B", ...args)
 
     await connectionA.awaitableConnected;
     await connectionB.awaitableConnected;

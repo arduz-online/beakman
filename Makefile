@@ -1,7 +1,12 @@
 PROTOC ?= protoc
 
-setup_env_mac:
+install_mac: install
 	brew install protobuf
+
+install_ubuntu: install
+	sudo apt install protobuf-compiler
+
+install:
 	npm i ts-protoc-gen -g
 
 clean:
