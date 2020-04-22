@@ -36,7 +36,6 @@ clean:
 compile_protocol:
 	${PROTOC} --js_out=import_style=commonjs_strict,binary:. --ts_out=. --proto_path=. ./proto/broker.proto
 	echo 'exports.default = proto;' >> ./proto/broker_pb.js
-	cat ./proto/broker_pb.js
 
 build: | clean compile_protocol
 	./node_modules/.bin/tsc -p tsconfig.json
