@@ -21,7 +21,7 @@ const plugins = [
   PROD && terser({})
 ];
 
-const banner = `/*! https://github.com/menduz/beakman - Apache 2.0 - ${JSON.stringify(
+const banner = `/*! https://github.com/arduz-io/beakman - Apache 2.0 - ${JSON.stringify(
   {
     date: new Date().toISOString(),
     commit: process.env.GITHUB_SHA || "HEAD",

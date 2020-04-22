@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      - "!master"
+  pull_request:
+
+name: CI
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          submodules: true
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: make install_ubuntu test
+        run: make install_ubuntu test

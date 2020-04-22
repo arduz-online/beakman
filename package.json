@@ -1,44 +1,41 @@
 {
   "name": "beakman",
-  "version": "1.1.2",
+  "version": "0.0.0",
   "description": "",
   "main": "dist-cjs/index.js",
   "typings": "dist-cjs/index.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "make test"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/menduz/beakman.git"
+    "url": "git+https://github.com/arduz-io/beakman.git"
   },
   "keywords": [],
   "author": "",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/menduz/beakman/issues"
+    "url": "https://github.com/arduz-io/beakman/issues"
   },
-  "homepage": "https://github.com/menduz/beakman#readme",
+  "homepage": "https://github.com/arduz-io/beakman#readme",
   "devDependencies": {
-    "@types/ws": "^6.0.3",
+    "@types/ws": "^7.2.4",
     "expect": "^24.9.0",
     "mocha": "^6.2.2",
     "rimraf": "^3.0.0",
-    "rollup": "^1.26.0",
+    "rollup": "^2.7.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-terser": "^5.1.2",
-    "rollup-plugin-typescript2": "^0.24.3",
-    "typescript": "^3.6.4",
-    "wrtc": "^0.4.2",
-    "ws": "^7.2.0"
+    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "typescript": "^3.8.3",
+    "wrtc": "^0.4.4",
+    "ws": "^7.2.3"
   },
   "dependencies": {
     "@types/google-protobuf": "^3.7.2",
-    "google-protobuf": "^3.10.0",
     "fp-future": "^1.0.1",
+    "google-protobuf": "^3.11.4",
     "mz-observable": "^1.0.1"
   },
   "files": [
