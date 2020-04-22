@@ -18,8 +18,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: make install_ubuntu tes
-        run: make install_ubuntu tes
+      - name: make install_ubuntu test
+        run: make install_ubuntu test
       - name: Publish
         uses: menduz/oddish-action@master
         with:
