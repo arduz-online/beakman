@@ -10,9 +10,9 @@ install:
 	npm i ts-protoc-gen -g
 
 clean:
-	./node_modules/.bin/rimraf dist
-	./node_modules/.bin/rimraf dist-web
-	./node_modules/.bin/rimraf dist-cjs
+	rm -rf dist || true
+	rm -rf dist-web || true
+	rm -rf dist-cjs || true
 	npm install
 
 compile_protocol:
