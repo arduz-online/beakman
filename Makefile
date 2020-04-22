@@ -17,6 +17,7 @@ clean:
 
 compile_protocol:
 	cd proto; ${PROTOC} --js_out=import_style=commonjs_strict,binary:. --ts_out=. ./broker.proto
+	cat ./proto/broker_pb.js
 	echo 'exports.default = proto;' >> ./proto/broker_pb.js
 	cat ./proto/broker_pb.js
 
