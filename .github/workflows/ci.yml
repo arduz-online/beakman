@@ -14,5 +14,5 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: make install_ubuntu test
-        run: make install_ubuntu test
+      - name: make update-signaling install_ubuntu test
+        run: make update-signaling install_ubuntu test
