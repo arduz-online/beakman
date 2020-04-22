@@ -16,7 +16,7 @@ clean:
 	npm install
 
 compile_protocol:
-	${PROTOC} --js_out=import_style=commonjs_strict,binary:$(PWD)/proto --ts_out=$(PWD)/proto --proto_path=$(PWD)/proto broker.proto
+	${PROTOC} --js_out=import_style=commonjs_strict,binary:. --ts_out=. --proto_path=. ./proto/broker.proto
 	echo 'exports.default = proto;' >> ./proto/broker_pb.js
 	cat ./proto/broker_pb.js
 
