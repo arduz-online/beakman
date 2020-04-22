@@ -16,8 +16,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: make update-signaling install_ubuntu tes
-        run: make update-signaling install_ubuntu tes
+      - name: make install_ubuntu tes
+        run: make install_ubuntu tes
       # - name: Publish
       #   uses: menduz/oddish-action@master
       #   with:
